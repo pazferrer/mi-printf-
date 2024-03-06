@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printhexm.c                                     :+:      :+:    :+:   */
+/*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pferrer- <pferrer-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 10:49:45 by pferrer-          #+#    #+#             */
-/*   Updated: 2024/03/06 15:50:12 by pferrer-         ###   ########.fr       */
+/*   Created: 2024/02/28 17:04:49 by pferrer-          #+#    #+#             */
+/*   Updated: 2024/03/06 15:31:30 by pferrer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef FT_PRINTF_H
+#define FT_PRINTF_H
 
-int	ft_printhexm(long n)
-{
-	int		count;
-	char	*symbols;
+#include <stdio.h>
+#include <stdarg.h>
+#include <math.h>
+#include <unistd.h>
 
-	symbols = "0123456789ABCDF";
-	count = 0;
-	if (n < 16)
-		return print_c(symbols[n]);
-	else
-		count = ft_printhexm (n / 16);
-		return count + ft_printhexm (n % 16);
-}
+int	ft_printhexm(long n);
+int	ft_printf(const char *s, ...);
+int	print_c(int c);
+
+#endif

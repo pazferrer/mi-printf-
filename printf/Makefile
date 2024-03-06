@@ -6,7 +6,7 @@
 #    By: pferrer- <pferrer-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 16:48:13 by pferrer-          #+#    #+#              #
-#    Updated: 2024/02/28 17:04:39 by pferrer-         ###   ########.fr        #
+#    Updated: 2024/03/06 15:05:15 by pferrer-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 AR = ar -rcs
 
-C_FILES = ft_printf.c
+C_FILES = ft_printf.c ft_printhexm.c print_c.c
 
 O_FILES = $(C_FILES:.c=.o)
 
@@ -31,7 +31,7 @@ all: $(NAME)
 $(NAME): $(O_FILES)
 	$(AR) $(NAME) $(O_FILES)
 
-%.o: %.c printf.h Makefile
+%.o: %.c ft_printf.h Makefile
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$@ compilado"
 

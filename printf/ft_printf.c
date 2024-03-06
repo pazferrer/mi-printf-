@@ -6,35 +6,27 @@
 /*   By: pferrer- <pferrer-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:02:50 by pferrer-          #+#    #+#             */
-/*   Updated: 2024/03/06 11:04:58 by pferrer-         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:25:17 by pferrer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "ft_printf.h"
 
-static int print_c(int c)
-{
-	return	write(1, &c, 1);
-}
-
-static int print_s(char *s)
+int print_s(char *s)
 {
 	int	count;
 
 	count = 0;
 	while (*s != '\0')
 	{
-		write(1, s, 1);
+		write (1, s, 1);
 		count++;
 		s++;
 	}
 	return (count);
 }
 
-static int print_d(long n, int base)
+int print_d(long n, int base)
 {
 	int		count;
 	char	*symbols;
@@ -56,7 +48,7 @@ static int print_d(long n, int base)
 	return count;
 }
 
-static int	print_format(char s, va_list ap)
+int	print_format(char s, va_list ap)
 {
 	int	count;
 
@@ -65,12 +57,14 @@ static int	print_format(char s, va_list ap)
 		count += print_c(va_arg(ap, int));
 	else if (s == 's')
 		count += print_s(va_arg(ap, char *));
-	else if (s == 'd')
+	else if (s == 'd' || s == 'i')
 		count += print_d((long)(va_arg(ap, int)), 10);
 	else if (s == 'x')
 		count += print_d((long)(va_arg(ap, unsigned int)), 16);
 	else if (s == 'X')
-		count += ft_printhexm((long)(va_arg(ap, unsigned int)), 16);
+		count += print_d((long)(va_arg(ap, unsigned int)), 17);
+	else if (s == 'u')
+		count += print_d((long)(va_arg(ap, unsigned int)), 10);
 	else
 		count += write(1, &s, 1);
 	return count;
@@ -80,9 +74,11 @@ int	ft_printf(const char *s, ...)
 {
 	va_list ap;
 	int	 count;
+	int			c2;
 	
 	va_start(ap, s);
 	count = 0;
+	c2 = 0;
 	while (*s != '\0')
 	{
 		if (*s == '%')
@@ -93,17 +89,19 @@ int	ft_printf(const char *s, ...)
 		else
 		{
 			count += write (1, s, 1);
+			c2 = count;
 		}
 		s++;
 	}
 	va_end(ap);
 	return count;
 }
-
+/*
 int main()
 {
 
-ft_printf("hola %s", "hola");
+ft_printf("hola %%");
+ft_printf("hola %%");
 
   return 0;
-}
+}*/
