@@ -6,17 +6,19 @@
 /*   By: pferrer- <pferrer-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:02:50 by pferrer-          #+#    #+#             */
-/*   Updated: 2024/03/06 17:49:07 by pferrer-         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:57:25 by pferrer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int print_s(char *s)
+int	print_s(char *s)
 {
 	int	count;
 
 	count = 0;
+	if (s == NULL)
+		return (write(1, "(null)", 6));
 	while (*s != '\0')
 	{
 		write (1, s, 1);
@@ -26,26 +28,26 @@ int print_s(char *s)
 	return (count);
 }
 
-int print_d(long n, int base)
+int	print_d(long n, int base)
 {
 	int		count;
 	char	*symbols;
-	
+
 	symbols = "0123456789abcdef";
 	count = 0;
 	if (n < 0)
 	{
 		write(1, "-", 1);
-		return print_d(-n, base) + 1;
+		return (print_d(-n, base) + 1);
 	}
 	else if (n < base)
-		return print_c(symbols[n]);
+		return (print_c(symbols[n]));
 	else
 	{
 		count = print_d(n / base, base);
-		return count + print_d(n % base, base);
+		return (count + print_d(n % base, base));
 	}
-	return count;
+	return (count);
 }
 
 int	print_format(char s, va_list ap)
@@ -65,17 +67,22 @@ int	print_format(char s, va_list ap)
 		count += ft_printhexm((long)(va_arg(ap, unsigned int)));
 	else if (s == 'u')
 		count += print_d((long)(va_arg(ap, unsigned int)), 10);
+	else if (s == 'p')
+	{
+		count += write (1, "0x", 2);
+		count += print_p((va_arg(ap, unsigned long)));
+	}
 	else
 		count += write(1, &s, 1);
-	return count;
+	return (count);
 }
 
 int	ft_printf(const char *s, ...)
 {
-	va_list ap;
-	int	 count;
-	int			c2;
-	
+	va_list	ap;
+	int		count;
+	int		c2;
+
 	va_start(ap, s);
 	count = 0;
 	c2 = 0;
@@ -94,7 +101,7 @@ int	ft_printf(const char *s, ...)
 		s++;
 	}
 	va_end(ap);
-	return count;
+	return (count);
 }
 /*
 int main()

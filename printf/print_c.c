@@ -6,13 +6,13 @@
 /*   By: pferrer- <pferrer-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:34:40 by pferrer-          #+#    #+#             */
-/*   Updated: 2024/03/06 15:20:42 by pferrer-         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:13:48 by pferrer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int print_c(int c)
+int	print_c(int c)
 {
 	return (write(1, &c, 1));
 }
